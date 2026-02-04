@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class Character : MonoBehaviour
     public float invulnerableDuration;
     private float invulnerableCounter;
     public bool invulnerable;
+
+    public UnityEvent<Character> OnHealthChange;
+    public UnityEvent<Transform> OnTakeDamage;
+    public UnityEvent OnDie;
 
     private void Start()
     {
