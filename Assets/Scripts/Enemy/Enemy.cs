@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour
     protected BaseState currentState;
     protected BaseState patrolState;
     protected BaseState chaseState;
+    protected BaseState attackState;
 
     protected virtual void Awake()
     {
@@ -160,5 +161,14 @@ public class Enemy : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position + (Vector3)centerOffset + new Vector3(CheckDistance* -transform.localScale.x,0),0.2f);
+    }
+
+    public float DistanceToTarget()
+    {
+        if (attacker == null)
+        {
+            return float.MaxValue;
+        }
+        return Vector2.Distance(transform.position, attacker.position);
     }
 }

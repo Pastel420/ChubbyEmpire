@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeChaseState : BaseState
+public class CatChaseState : BaseState
 {
     public override void OnEnter(Enemy enemy)
     {
