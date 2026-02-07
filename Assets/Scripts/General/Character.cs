@@ -42,6 +42,8 @@ public class Character : MonoBehaviour
         {
             currentHealth -= attacker.damage;
             TriggerInvulnerable();
+
+            OnTakeDamage?.Invoke(attacker.transform);
         }
         else
         {

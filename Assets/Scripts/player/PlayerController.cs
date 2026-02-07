@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public Vector2 inputDirection;
     private PhysicsCheck physicsCheck;
+    private PlayerAnimation playerAnimation;
+
+    public bool isAttack;
 
     [Header("基本参数")]
     public float speed;
@@ -22,10 +25,15 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         physicsCheck = GetComponent<PhysicsCheck>();
 
+
+        playerAnimation = GetComponent<PlayerAnimation>();
+
+
         inputControl = new PlayerInputControl();
-
+        //跳跃
         inputControl.Gameplay.Jump.started += Jump;
-
+        //攻击
+        inputControl.Gameplay.Attack.started += PlayerAttack;
      }
 
    
@@ -98,5 +106,12 @@ public class PlayerController : MonoBehaviour
 
             currentJumpCount++;
         }
+    }
+
+    private void PlayerAttack(InputAction.CallbackContext obj)
+    {
+        playerAnimation.PlayAttack();
+        isAttack = true;
+      
     }
 }
