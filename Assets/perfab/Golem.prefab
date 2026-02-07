@@ -14,10 +14,17 @@ GameObject:
   - component: {fileID: 3310484707631108677}
   - component: {fileID: 1434294155972427784}
   - component: {fileID: 2472722337091671272}
+<<<<<<< Updated upstream
   - component: {fileID: -5453757576190978586}
   - component: {fileID: 8997053568175590558}
   - component: {fileID: 4597197866879556801}
   - component: {fileID: 5745761008174891504}
+=======
+  - component: {fileID: 8997053568175590558}
+  - component: {fileID: 4597197866879556801}
+  - component: {fileID: 5745761008174891504}
+  - component: {fileID: 5508499694283242118}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -214,6 +221,7 @@ MonoBehaviour:
   damage: 5
   attackRange: 4
   attackRate: 2
+<<<<<<< Updated upstream
 --- !u!114 &-5453757576190978586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +260,8 @@ MonoBehaviour:
   attackCooldown: 2
   attackPoint: {fileID: 0}
   projectilePrefab: {fileID: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!114 &8997053568175590558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +320,11 @@ Animator:
   m_GameObject: {fileID: 4656597424548103131}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
+<<<<<<< Updated upstream
   m_Controller: {fileID: 9100000, guid: 199c893ed5996994a9e011ca714c58c5, type: 2}
+=======
+  m_Controller: {fileID: 9100000, guid: 4d42757368dbaa94c98a8dfed2b20770, type: 2}
+>>>>>>> Stashed changes
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -321,3 +335,44 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< Updated upstream
+=======
+--- !u!114 &5508499694283242118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656597424548103131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03d792ff030ec344a094a8103618742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  physicsCheck: {fileID: 0}
+  NormalSpeed: 50
+  ChaseSpeed: 150
+  CurrentSpeed: 0
+  faceDir: {x: -1, y: 0, z: 0}
+  hurtForce: 0
+  attacker: {fileID: 0}
+  centerOffset: {x: 0, y: 0}
+  checksize: {x: 1, y: 1}
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  CheckDistance: 6
+  waitTime: 0.5
+  waitTimeCounter: 0
+  wait: 0
+  lostTimeCounter: 0
+  lostTime: 0
+  isHurt: 0
+  isDead: 0
+  attackRangeMin: 2
+  attackRangeMax: 6
+  attackCooldown: 2
+  attackPoint: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+>>>>>>> Stashed changes
