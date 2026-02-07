@@ -6,6 +6,8 @@ public class PlayerAnimation : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
+    private PlayerController playerController;
+
 
     private void Awake()
     {
@@ -22,5 +24,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetFloat("velocityX",Mathf.Abs(rb.velocity.x));
         anim.SetFloat("velocityY", rb.velocity.y);
+        anim.SetBool("isAttack", playerController.isAttack);
+    }
+
+    public void PlayHurt()
+    {
+        anim.SetTrigger("hurt");
+    }
+    public void PlayAttack()
+    {
+        anim.SetTrigger("attack");
     }
 }
