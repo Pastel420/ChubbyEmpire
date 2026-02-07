@@ -7,7 +7,6 @@ public class GolemChaseState : BaseState
     public override void OnEnter(Enemy enemy)
     {
         currentEnemy = enemy;
-        Debug.Log("Enter Chase State");
         currentEnemy.CurrentSpeed= currentEnemy.ChaseSpeed;
         currentEnemy.anim.SetBool("run", true);
     }
@@ -20,7 +19,7 @@ public class GolemChaseState : BaseState
             return;
         }
         // ³¢ÊÔ½« currentEnemy ×ªÎª Golem
-        if (currentEnemy is Golem golem)
+        /*if (currentEnemy is Golem golem)
         {
             float dist = currentEnemy.DistanceToTarget();
             if (dist >= golem.attackRangeMin && dist <= golem.attackRangeMax)
@@ -28,7 +27,7 @@ public class GolemChaseState : BaseState
                 currentEnemy.SwitchState(NPCState.Attack);
                 return; 
             }
-        }
+        }*/
         if (!currentEnemy.physicsCheck.isGround ||
             (currentEnemy.physicsCheck.touchLeftWall && currentEnemy.faceDir.x < 0) ||
             (currentEnemy.physicsCheck.touchRightWall && currentEnemy.faceDir.x > 0))
