@@ -56,8 +56,7 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        faceDir=new Vector3(-transform.localScale.x, 0, 0);
-
+        faceDir=new Vector3(transform.localScale.x, 0, 0);
         currentState.LogicUpdate();
         TimeCounter();
     }

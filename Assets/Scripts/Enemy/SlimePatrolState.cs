@@ -19,6 +19,7 @@ public class SlimePatrolState : BaseState
         if (!currentEnemy.physicsCheck.isGround || (currentEnemy.physicsCheck.touchLeftWall && currentEnemy.faceDir.x < 0) ||
             (currentEnemy.physicsCheck.touchRightWall && currentEnemy.faceDir.x > 0))
         {
+            currentEnemy.transform.localScale = new Vector3(-currentEnemy.transform.localScale.x,1,-1);
             currentEnemy.wait = true;
             currentEnemy.anim.SetBool("walk", false);
         }
