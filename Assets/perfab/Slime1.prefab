@@ -14,19 +14,12 @@ GameObject:
   - component: {fileID: 3310484707631108677}
   - component: {fileID: 1434294155972427784}
   - component: {fileID: 2472722337091671272}
-<<<<<<< Updated upstream
-  - component: {fileID: -5453757576190978586}
   - component: {fileID: 8997053568175590558}
+  - component: {fileID: 6975756947724199833}
   - component: {fileID: 4597197866879556801}
   - component: {fileID: 5745761008174891504}
-=======
-  - component: {fileID: 8997053568175590558}
-  - component: {fileID: 4597197866879556801}
-  - component: {fileID: 5745761008174891504}
-  - component: {fileID: 5508499694283242118}
->>>>>>> Stashed changes
   m_Layer: 0
-  m_Name: Golem
+  m_Name: Slime1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 1816625629
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: ff004a1dd14581b4a8fae02753f792f8, type: 3}
+  m_Sprite: {fileID: -349251051, guid: fc1d67a4622f38e4a97f5152c1977ca9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -161,8 +154,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.8, y: 1.6}
+    pivot: {x: 0.5, y: 0.32}
+    oldSize: {x: 1.6, y: 1.6}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -221,47 +214,6 @@ MonoBehaviour:
   damage: 5
   attackRange: 4
   attackRate: 2
-<<<<<<< Updated upstream
---- !u!114 &-5453757576190978586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4656597424548103131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03d792ff030ec344a094a8103618742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  physicsCheck: {fileID: 0}
-  NormalSpeed: 100
-  ChaseSpeed: 200
-  CurrentSpeed: 0
-  faceDir: {x: -1, y: 0, z: 0}
-  hurtForce: 0
-  attacker: {fileID: 0}
-  centerOffset: {x: 0, y: 0}
-  checksize: {x: 1, y: 1}
-  attackLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  CheckDistance: 4
-  waitTime: 1
-  waitTimeCounter: 0
-  wait: 0
-  lostTimeCounter: 0
-  lostTime: 0
-  isHurt: 0
-  isDead: 0
-  attackRangeMin: 2
-  attackRangeMax: 6
-  attackCooldown: 2
-  attackPoint: {fileID: 0}
-  projectilePrefab: {fileID: 0}
-=======
->>>>>>> Stashed changes
 --- !u!114 &8997053568175590558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +239,39 @@ MonoBehaviour:
   OnDie:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6975756947724199833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656597424548103131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfd65596c177b14991ceaa6b40094ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  physicsCheck: {fileID: 0}
+  NormalSpeed: 100
+  ChaseSpeed: 300
+  CurrentSpeed: 0
+  faceDir: {x: -1, y: 0, z: 0}
+  hurtForce: 0
+  attacker: {fileID: 0}
+  centerOffset: {x: 0, y: 0}
+  checksize: {x: 1, y: 1}
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  CheckDistance: 4
+  waitTime: 0.5
+  waitTimeCounter: 0
+  wait: 0
+  lostTimeCounter: 0
+  lostTime: 0
+  isHurt: 0
+  isDead: 0
 --- !u!114 &4597197866879556801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,11 +305,7 @@ Animator:
   m_GameObject: {fileID: 4656597424548103131}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-<<<<<<< Updated upstream
-  m_Controller: {fileID: 9100000, guid: 199c893ed5996994a9e011ca714c58c5, type: 2}
-=======
   m_Controller: {fileID: 9100000, guid: 4d42757368dbaa94c98a8dfed2b20770, type: 2}
->>>>>>> Stashed changes
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -335,44 +316,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
-<<<<<<< Updated upstream
-=======
---- !u!114 &5508499694283242118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4656597424548103131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03d792ff030ec344a094a8103618742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  physicsCheck: {fileID: 0}
-  NormalSpeed: 50
-  ChaseSpeed: 150
-  CurrentSpeed: 0
-  faceDir: {x: -1, y: 0, z: 0}
-  hurtForce: 0
-  attacker: {fileID: 0}
-  centerOffset: {x: 0, y: 0}
-  checksize: {x: 1, y: 1}
-  attackLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  CheckDistance: 6
-  waitTime: 0.5
-  waitTimeCounter: 0
-  wait: 0
-  lostTimeCounter: 0
-  lostTime: 0
-  isHurt: 0
-  isDead: 0
-  attackRangeMin: 2
-  attackRangeMax: 6
-  attackCooldown: 2
-  attackPoint: {fileID: 0}
-  projectilePrefab: {fileID: 0}
->>>>>>> Stashed changes

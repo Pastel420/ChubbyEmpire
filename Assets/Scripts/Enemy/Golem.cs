@@ -7,13 +7,7 @@ public class Golem : Enemy
     public float attackRangeMax = 6f;
     public float attackCooldown = 2f;       // ← 新增冷却时间
     public Transform attackPoint;           // 发射点（子物体）
-    public GameObject projectilePrefab;     // 拖入 Rock 预制体*/
-
-    public override void Move()
-    {
-        base.Move();
-        anim.SetBool("jump", false);
-    }
+    public GameObject projectilePrefab;     // 拖入 Rock 预制体
 
     protected override void Awake()
     {
