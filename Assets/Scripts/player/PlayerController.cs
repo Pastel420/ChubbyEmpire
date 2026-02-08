@@ -11,15 +11,23 @@ public class PlayerController : MonoBehaviour
     private PhysicsCheck physicsCheck;
     private PlayerAnimation playerAnimation;
 
-    public bool isAttack;
+    
+   
+    
 
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
     public int maxJumpCount = 2; // 最大跳跃次数（包括一段跳）
     private int currentJumpCount = 0; // 当前已跳跃次数
+    public float hurtForce;
+    public bool isHurt;
+    public bool isDead;
+    public bool isAttack;
 
     private float doubleJumpForceMultiplier = 0.8f;
+
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,7 +62,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if(!isHurt)
+            Move();
 
         // 检查是否落地
         if (physicsCheck.isGround && rb.velocity.y <= 0)
@@ -112,6 +121,20 @@ public class PlayerController : MonoBehaviour
     {
         playerAnimation.PlayAttack();
         isAttack = true;
-      
+    }
+
+    public void GetHurt(Transform attacker)
+    {
+        isHurt = true;
+        rb.velocity = Vector2.zero;
+        Vector2 dir = new Vector2((transform.position.x - attacker.position.x),0).normalized;
+
+        rb.AddForce(dir * hurtForce, ForceMode2D.Impulse);
+    }
+
+    public void PlayerDead()
+    {
+        isDead = true;
+        inputControl.Gameplay.Disable();
     }
 }

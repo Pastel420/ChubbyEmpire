@@ -13,6 +13,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -24,6 +25,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetFloat("velocityX",Mathf.Abs(rb.velocity.x));
         anim.SetFloat("velocityY", rb.velocity.y);
+        anim.SetBool("isDead", playerController.isDead);
         anim.SetBool("isAttack", playerController.isAttack);
     }
 

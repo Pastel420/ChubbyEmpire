@@ -48,6 +48,7 @@ public class Character : MonoBehaviour
         else
         {
             currentHealth = 0;//À¿¡À
+            OnDie?.Invoke();
         }
 
 
