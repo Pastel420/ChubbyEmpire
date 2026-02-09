@@ -46,6 +46,12 @@ public class Enemy : MonoBehaviour
         CurrentSpeed = NormalSpeed;
         physicsCheck= GetComponent<PhysicsCheck>();
         waitTimeCounter = waitTime;
+        Character character = GetComponent<Character>();
+        if (character != null)
+        {
+            character.OnDie.AddListener(OnDie);          // 死亡时调用 Enemy.OnDie()
+            character.OnTakeDamage.AddListener(OnTakeDamage); // 受伤时调用 Enemy.OnTakeDamage()
+        }
     }
 
     private void OnEnable()
@@ -151,6 +157,10 @@ public class Enemy : MonoBehaviour
         gameObject.layer = 2;
         anim.SetBool("dead", true);
         isDead= true;
+
+        //记得回来改
+        //*******************************************************************************************
+        Destroy(gameObject, 1f);
     }
 
     public void DestroyAfterAnimation()

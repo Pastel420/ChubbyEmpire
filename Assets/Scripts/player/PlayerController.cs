@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,15 +11,12 @@ public class PlayerController : MonoBehaviour
     private PhysicsCheck physicsCheck;
     private PlayerAnimation playerAnimation;
 
-    
-   
-    
 
-    [Header("»ù±¾²ÎÊı")]
+    [Header("åŸºæœ¬å‚æ•°")]
     public float speed;
     public float jumpForce;
-    public int maxJumpCount = 2; // ×î´óÌøÔ¾´ÎÊı£¨°üÀ¨Ò»¶ÎÌø£©
-    private int currentJumpCount = 0; // µ±Ç°ÒÑÌøÔ¾´ÎÊı
+    public int maxJumpCount = 2; // æœ€å¤§è·³è·ƒæ¬¡æ•°ï¼ˆåŒ…æ‹¬ä¸€æ®µè·³ï¼‰
+    private int currentJumpCount = 0; // å½“å‰å·²è·³è·ƒæ¬¡æ•°
     public float hurtForce;
     public bool isHurt;
     public bool isDead;
@@ -27,26 +24,33 @@ public class PlayerController : MonoBehaviour
 
     private float doubleJumpForceMultiplier = 0.8f;
 
-    
+    [Header("æ”»å‡»åˆ¤å®š")]
+    public GameObject attackHitbox;      // æ‹–å…¥ AttackHitbox å­ç‰©ä½“
+    public float attackActiveTime = 0.2f; // æ”»å‡»åˆ¤å®šæŒç»­æ—¶é—´ï¼ˆç§’ï¼‰
+    private Coroutine currentAttack;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         physicsCheck = GetComponent<PhysicsCheck>();
-
-
         playerAnimation = GetComponent<PlayerAnimation>();
 
-
         inputControl = new PlayerInputControl();
-        //ÌøÔ¾
-        inputControl.Gameplay.Jump.started += Jump;
-        //¹¥»÷
-        inputControl.Gameplay.Attack.started += PlayerAttack;
-     }
 
-   
+        // æ³¨å†Œå›è°ƒ
+        inputControl.Gameplay.Jump.started += Jump;
+        inputControl.Gameplay.Attack.performed += PlayerAttack;
+
+        inputControl.Enable(); // â†â†â† è¿™è¡Œæœ€é‡è¦ï¼
+
+        Debug.Log("ã€PlayerControllerã€‘è¾“å…¥ç³»ç»Ÿå·²å¼ºåˆ¶å¯ç”¨");
+    }
+
+
     private void OnEnable()
     {
+        //Debug.Log("ã€PlayerControllerã€‘è¾“å…¥ç³»ç»Ÿå·²å¯ç”¨ã€‚");
         inputControl.Enable();
     }
 
@@ -65,7 +69,7 @@ public class PlayerController : MonoBehaviour
         if(!isHurt)
             Move();
 
-        // ¼ì²éÊÇ·ñÂäµØ
+        // æ£€æŸ¥æ˜¯å¦è½åœ°
         if (physicsCheck.isGround && rb.velocity.y <= 0)
         {
             currentJumpCount = 0;
@@ -83,34 +87,34 @@ public class PlayerController : MonoBehaviour
             faceDir = -1;
         if (inputDirection.x > 0)
             faceDir = 1;
-        //ÈËÎï·­×ª
+        //äººç‰©ç¿»è½¬
         transform.localScale = new Vector3(faceDir, 1, 1);
     }
     private void Jump(InputAction.CallbackContext context)
     {
-        // Èç¹ûÔÚµØÃæÉÏ£¬ÖØÖÃÌøÔ¾¼ÆÊı
+        // å¦‚æœåœ¨åœ°é¢ä¸Šï¼Œé‡ç½®è·³è·ƒè®¡æ•°
         if (physicsCheck.isGround)
         {
             currentJumpCount = 0;
         }
 
-        // Èç¹û»¹¿ÉÒÔÌøÔ¾
+        // å¦‚æœè¿˜å¯ä»¥è·³è·ƒ
         if (currentJumpCount < maxJumpCount)
         {
-            // ÖØÖÃYÖáËÙ¶È£¬È·±£ÌøÔ¾¸ß¶ÈÒ»ÖÂ
+            // é‡ç½®Yè½´é€Ÿåº¦ï¼Œç¡®ä¿è·³è·ƒé«˜åº¦ä¸€è‡´
             rb.velocity = new Vector2(rb.velocity.x, 0);
 
-            // ¸ù¾İÌøÔ¾´ÎÊı¼ÆËãÌøÔ¾Á¦
+            // æ ¹æ®è·³è·ƒæ¬¡æ•°è®¡ç®—è·³è·ƒåŠ›
             float actualJumpForce = jumpForce;
 
-            // Èç¹ûÊÇ¶ş¶ÎÌø£¨currentJumpCount == 1±íÊ¾ÒÑ¾­Ìø¹ıÒ»´Î£©
+            // å¦‚æœæ˜¯äºŒæ®µè·³ï¼ˆcurrentJumpCount == 1è¡¨ç¤ºå·²ç»è·³è¿‡ä¸€æ¬¡ï¼‰
             if (currentJumpCount == 1)
             {
-                // Ó¦ÓÃ¶ş¶ÎÌøÁ¦¶ÈÏµÊı
+                // åº”ç”¨äºŒæ®µè·³åŠ›åº¦ç³»æ•°
                 actualJumpForce *= doubleJumpForceMultiplier;
             }
 
-            // Ö´ĞĞÌøÔ¾
+            // æ‰§è¡Œè·³è·ƒ
             rb.AddForce(transform.up * actualJumpForce, ForceMode2D.Impulse);
 
             currentJumpCount++;
@@ -119,8 +123,38 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerAttack(InputAction.CallbackContext obj)
     {
-        playerAnimation.PlayAttack();
-        isAttack = true;
+        if (obj.performed) // è¿™è¡Œä¿ç•™ï¼ˆå…¶å® performed å›è°ƒæ—¶ obj.alreadyUsed=falseï¼‰
+        {
+            Debug.Log("ã€Attackã€‘G é”®æŒ‰ä¸‹ï¼");
+
+            playerAnimation.PlayAttack();
+            isAttack = true;
+
+            if (attackHitbox != null)
+            {
+                attackHitbox.SetActive(true);
+                StartCoroutine(DisableHitboxAfterDelay());
+            }
+        }
+    }
+
+    private IEnumerator ActivateAttackHitbox()
+    {
+        // æ¿€æ´»åˆ¤å®šåŒºåŸŸ
+        attackHitbox.SetActive(true);
+
+        // ç­‰å¾…ä¸€æ®µæ—¶é—´ï¼ˆæ”»å‡»çª—å£ï¼‰
+        yield return new WaitForSeconds(attackActiveTime);
+
+        // å…³é—­åˆ¤å®šåŒºåŸŸ
+        attackHitbox.SetActive(false);
+    }
+
+    private IEnumerator DisableHitboxAfterDelay()
+    {
+        yield return new WaitForSeconds(0.2f); // 0.2ç§’åå…³é—­
+        if (attackHitbox != null)
+            attackHitbox.SetActive(false);
     }
 
     public void GetHurt(Transform attacker)

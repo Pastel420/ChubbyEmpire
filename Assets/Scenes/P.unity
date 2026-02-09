@@ -5030,6 +5030,10 @@ PrefabInstance:
       value: Slime1
       objectReference: {fileID: 0}
     - target: {fileID: 4656597424548103131, guid: 1a4e57072ad3d834e876fb225d12f21d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656597424548103131, guid: 1a4e57072ad3d834e876fb225d12f21d, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
