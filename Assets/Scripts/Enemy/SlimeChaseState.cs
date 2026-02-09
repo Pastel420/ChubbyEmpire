@@ -7,7 +7,7 @@ public class SlimeChaseState : BaseState
     public override void OnEnter(Enemy enemy)
     {
         currentEnemy = enemy;
-        Debug.Log("Enter Chase State");
+        
         currentEnemy.CurrentSpeed= currentEnemy.ChaseSpeed;
         currentEnemy.anim.SetBool("run", true);
     }
