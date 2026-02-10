@@ -42,9 +42,9 @@ public class PlayerController : MonoBehaviour
         inputControl.Gameplay.Jump.started += Jump;
         inputControl.Gameplay.Attack.performed += PlayerAttack;
 
-        inputControl.Enable(); // ←←← 这行最重要！
+        //inputControl.Enable(); // ←←← 这行最重要！
 
-        Debug.Log("【PlayerController】输入系统已强制启用");
+        
     }
 
 

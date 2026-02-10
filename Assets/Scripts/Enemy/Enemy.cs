@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     public LayerMask attackLayer;
     public float CheckDistance;
 
+    
+
     [Header("¼ÆÊ±Æ÷")]
     public float waitTime;
     public float waitTimeCounter;
@@ -129,11 +131,11 @@ public class Enemy : MonoBehaviour
     {
         attacker= attackTrans;
         //Turn
-        if(attackTrans.position.x>transform.position.x)
+        if(attackTrans.position.x > transform.position.x)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-        if(attackTrans.position.x<transform.position.x)
+        if(attackTrans.position.x < transform.position.x)
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
