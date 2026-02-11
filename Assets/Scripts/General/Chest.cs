@@ -4,9 +4,35 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, Iinteractable
 {
-    public void TriggerAction()
+
+    private SpriteRenderer spriteRenderer;
+
+    public Sprite openSprite;
+    public Sprite closeSprite;
+    public bool isDone;
+
+    private void Awake()
     {
-        throw new System.NotImplementedException();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void OnEnable()
+    {
+        spriteRenderer.sprite = isDone? openSprite : closeSprite;
+    }
+    public void TriggerAction()
+    {
+        Debug.Log("ʰȡtnt");
+        if (!isDone)
+        {
+            OpenChest();
+        }
+    }
+
+    private void OpenChest()
+    {
+        spriteRenderer.sprite = openSprite;
+        isDone = true;
+        this.gameObject.tag = "Untagged";
+    }
 }

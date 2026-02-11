@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 inputDirection;
     private PhysicsCheck physicsCheck;
     private PlayerAnimation playerAnimation;
-
+    private PlayerAudio playerAudio;
 
     [Header("基本参数")]
     public float speed;
@@ -26,10 +26,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("攻击判定")]
     public GameObject attackHitbox;      // 拖入 AttackHitbox 子物体
-    public float attackActiveTime = 0.2f; // 攻击判定持续时间（秒）
-    private Coroutine currentAttack;
+    //public float attackActiveTime = 0.2f; // 攻击判定持续时间（秒）
+    //private Coroutine currentAttack;
 
-
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         playerAnimation = GetComponent<PlayerAnimation>();
 
         inputControl = new PlayerInputControl();
+        playerAudio = GetComponent<PlayerAudio>();
 
         // 注册回调
         inputControl.Gameplay.Jump.started += Jump;
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         inputDirection = inputControl.Gameplay.Move.ReadValue<Vector2>();
+
     }
 
     private void FixedUpdate()
@@ -75,6 +77,7 @@ public class PlayerController : MonoBehaviour
             currentJumpCount = 0;
        
         }
+       
     }
 
     public void Move()
@@ -118,44 +121,46 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(transform.up * actualJumpForce, ForceMode2D.Impulse);
 
             currentJumpCount++;
+
+            // 播放跳跃音效
+            if (playerAudio != null)
+                playerAudio.PlayJumpSound();
         }
     }
 
     private void PlayerAttack(InputAction.CallbackContext obj)
     {
-        if (obj.performed) // 这行保留（其实 performed 回调时 obj.alreadyUsed=false）
-        {
-            //Debug.Log("【Attack】G 键按下！");
+        // 已经在攻击中，忽略（防止连点）
+        if (isAttack) return;
 
-            playerAnimation.PlayAttack();
-            isAttack = true;
+        playerAnimation.PlayAttack();
+        isAttack = true;
 
-            if (attackHitbox != null)
-            {
-                attackHitbox.SetActive(true);
-                StartCoroutine(DisableHitboxAfterDelay());
-            }
-        }
+        // 播放音效
+        if (playerAudio != null)
+            playerAudio.PlayAttackSound();
+
+        // 注意：这里不再激活 hitbox，交给动画事件处理
     }
 
-    private IEnumerator ActivateAttackHitbox()
-    {
-        // 激活判定区域
-        attackHitbox.SetActive(true);
+    //private IEnumerator ActivateAttackHitbox()
+    //{
+    //    // 激活判定区域
+    //    attackHitbox.SetActive(true);
 
-        // 等待一段时间（攻击窗口）
-        yield return new WaitForSeconds(attackActiveTime);
+    //    // 等待一段时间（攻击窗口）
+    //    yield return new WaitForSeconds(attackActiveTime);
 
-        // 关闭判定区域
-        attackHitbox.SetActive(false);
-    }
+    //    // 关闭判定区域
+    //    attackHitbox.SetActive(false);
+    //}
 
-    private IEnumerator DisableHitboxAfterDelay()
-    {
-        yield return new WaitForSeconds(0.2f); // 0.2秒后关闭
-        if (attackHitbox != null)
-            attackHitbox.SetActive(false);
-    }
+    //private IEnumerator DisableHitboxAfterDelay()
+    //{
+    //    yield return new WaitForSeconds(0.2f); // 0.2秒后关闭
+    //    if (attackHitbox != null)
+    //        attackHitbox.SetActive(false);
+    //}
 
     public void GetHurt(Transform attacker)
     {
@@ -164,11 +169,51 @@ public class PlayerController : MonoBehaviour
         Vector2 dir = new Vector2((transform.position.x - attacker.position.x),0).normalized;
 
         rb.AddForce(dir * hurtForce, ForceMode2D.Impulse);
+
+        // 播放受伤音效
+        if (playerAudio != null)
+            playerAudio.PlayHurtSound();
     }
 
     public void PlayerDead()
     {
         isDead = true;
         inputControl.Gameplay.Disable();
+    }
+    
+
+    // 公开方法：供其他脚本调用播放获得物品音效
+    public void PlayItemPickupSound()
+    {
+        if (playerAudio != null)
+            playerAudio.PlayItemSound();
+    }
+
+    // 公开方法：供其他脚本调用播放开门音效
+    public void PlayDoorOpenSound()
+    {
+        if (playerAudio != null)
+            playerAudio.PlayDoorSound();
+    }
+
+    // 动画事件调用：开启攻击判定
+    public void EnableAttackHitbox()
+    {
+        if (attackHitbox != null)
+        {
+            attackHitbox.SetActive(true);
+            Debug.Log("攻击判定开启");
+        }
+    }
+
+    // 动画事件调用：关闭攻击判定
+    public void DisableAttackHitbox()
+    {
+        if (attackHitbox != null)
+        {
+            attackHitbox.SetActive(false);
+            isAttack = false;
+            Debug.Log("攻击判定关闭");
+        }
     }
 }

@@ -5,3 +5,8 @@ public enum NPCState
     Attack,
     Skill
 }
+
+public enum SceneType
+{ 
+    Location, Menu
+}
