@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        inputControl.Disable();
+        //inputControl.Disable();
     }
 
     private void Update()
@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
     {
         if (obj.performed) // 这行保留（其实 performed 回调时 obj.alreadyUsed=false）
         {
-            Debug.Log("【Attack】G 键按下！");
+            //Debug.Log("【Attack】G 键按下！");
 
             playerAnimation.PlayAttack();
             isAttack = true;
