@@ -9,7 +9,7 @@ public class SlimeChaseState : BaseState
         currentEnemy = enemy;
         
         currentEnemy.CurrentSpeed= currentEnemy.ChaseSpeed;
-        currentEnemy.anim.SetBool("run", true);
+        //currentEnemy.anim.SetBool("run", true);
     }
     public override void LogicUpdate()
     {
@@ -36,6 +36,6 @@ public class SlimeChaseState : BaseState
     public override void OnExit()
     {
         currentEnemy.lostTimeCounter = currentEnemy.lostTime;
-        currentEnemy.anim.SetBool("run", false);
+        //currentEnemy.anim.SetBool("run", false);
     }
 }

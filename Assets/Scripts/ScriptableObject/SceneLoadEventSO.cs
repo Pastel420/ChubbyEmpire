@@ -5,9 +5,14 @@ using UnityEngine.Events;
 public class SceneLoadEventSO : ScriptableObject
 {
     public UnityAction<GameSceneSO, Vector3, bool> LoadRequestEvent;
-
+    public UnityAction<GameSceneSO> OnSceneLoaded;
     public void RaiseLoadRequestEvent(GameSceneSO locationToLoad, Vector3 posToGo, bool fadeScreen)
     {
         LoadRequestEvent?.Invoke(locationToLoad, posToGo, fadeScreen);
+    }
+
+    public void RaiseEvent(GameSceneSO scene)
+    {
+        OnSceneLoaded?.Invoke(scene);
     }
 }

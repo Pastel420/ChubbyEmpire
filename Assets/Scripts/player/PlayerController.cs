@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         inputDirection = inputControl.Gameplay.Move.ReadValue<Vector2>();
-
+        
     }
 
     private void FixedUpdate()
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerDead()
     {
         isDead = true;
-        inputControl.Gameplay.Disable();
+        //inputControl.Gameplay.Disable();
     }
     
 
@@ -215,5 +215,22 @@ public class PlayerController : MonoBehaviour
             isAttack = false;
             Debug.Log("攻击判定关闭");
         }
+    }
+
+    // 添加复活方法
+    public void Revive()
+    {
+        isDead = false;
+        isHurt = false;
+        isAttack = false;
+
+        // 重新启用输入
+        inputControl.Gameplay.Enable();
+
+        // 重置速度
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0;
+
+        Debug.Log("玩家已复活");
     }
 }
