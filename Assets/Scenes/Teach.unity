@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadEventSO: {fileID: 11400000, guid: f9c232158b00cfb4b82cee93dff4569a, type: 2}
-  nextScene: {fileID: 11400000, guid: 72e2cbede33d22d4a98b30a384a394da, type: 2}
+  nextScene: {fileID: 11400000, guid: ee07df254b652e94fbb7bfbec5f8cdf0, type: 2}
   nextScenePosition: {x: 0, y: 0, z: 0}
   dialogues:
   - "\u4F60\u597D\u554A\uFF01\u7A7F\u8D8A\u6765\u7684\u5192\u9669\u8005\r"

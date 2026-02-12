@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9162813717723229753}
   - component: {fileID: 35840030000978221}
   - component: {fileID: 8770636401733337023}
+  - component: {fileID: -965363047278234475}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -295,3 +296,29 @@ MonoBehaviour:
   damage: 2
   attackRange: 2
   attackRate: 1
+--- !u!114 &-965363047278234475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515165137485386408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29bf4ef29fe1d7240b5873aa897dd1fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 0
+  invulnerableDuration: 0
+  invulnerable: 0
+  OnHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
+  deathEvent: {fileID: 0}
