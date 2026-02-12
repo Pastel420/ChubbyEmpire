@@ -12,7 +12,7 @@ public class Golem : Enemy
     public override void Move()
     {
         base.Move();
-        anim.SetBool("jump", false);
+        //anim.SetBool("jump", false);
     }
 
     protected override void Awake()
