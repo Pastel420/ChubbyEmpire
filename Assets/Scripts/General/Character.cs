@@ -92,4 +92,20 @@ public class Character : MonoBehaviour
             invulnerableCounter = invulnerableDuration;
         }
     }
+    public void Die()
+    {
+        if (currentHealth <= 0) return; // 防止重复死亡
+
+        currentHealth = 0;
+
+        // 同步到 PlayerDataManager
+        if (PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.Instance.currentHealth = 0;
+        }
+
+        OnDie?.Invoke();
+        deathEvent?.RaiseEvent();
+        OnHealthChange?.Invoke(this); // 通知 UI 血量变为 0
+    }
 }
