@@ -5320,7 +5320,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1004199072}
   - component: {fileID: 1004199071}
-  - component: {fileID: 1004199070}
   - component: {fileID: 1004199076}
   - component: {fileID: 1004199075}
   - component: {fileID: 1004199074}
@@ -5337,20 +5336,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1004199070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004199069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8856276900bb65d469458c1a35358446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossMaxHealth: 15
-  portalToEnd: {fileID: 269229179}
 --- !u!212 &1004199071
 SpriteRenderer:
   m_ObjectHideFlags: 0
