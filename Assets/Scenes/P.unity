@@ -365,6 +365,7 @@ MonoBehaviour:
   itemType: 0
   itemDescription: "\u83B7\u5F97\u4E86\u70B8\u5F39\uFF01"
   healAmount: 1
+  openSound: {fileID: 0}
 --- !u!1001 &927606078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -497,7 +498,7 @@ TilemapRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 1.2066667, y: 1.2066667, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -24626,9 +24627,9 @@ Tilemap:
   - first: {x: 122, y: 7, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 419
-      m_TileSpriteIndex: 419
-      m_TileMatrixIndex: 1
+      m_TileIndex: 719
+      m_TileSpriteIndex: 679
+      m_TileMatrixIndex: 2
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
@@ -37123,7 +37124,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 2aca1977b7ba73742b2790486b212444, type: 2}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: a89f0b087b7d1b2418cd5528ceca8206, type: 2}
-  - m_RefCount: 4
+  - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 941a5c66c91073f408ea3eaf126ac04b, type: 2}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 600abc47c53ff2d439a611adf8d00ff1, type: 2}
@@ -37723,8 +37724,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 9b9e0e01a7332c0479647d930adb01fb, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 77cc71d8dd6b5bd49ac4935e3d4f3c4c, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 1a7b5da12a910fc4abb4ce39228d719d, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 9d447fb7f93aa42468e5d8906d856d82, type: 2}
   - m_RefCount: 4
@@ -38724,7 +38725,7 @@ Tilemap:
     m_Data: {fileID: 504415284, guid: ce863d1fc858b91408a6d91d5d098d5d, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 1142702159, guid: ce863d1fc858b91408a6d91d5d098d5d, type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 3
     m_Data: {fileID: 1668638204, guid: ce863d1fc858b91408a6d91d5d098d5d, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 1130433531, guid: ce863d1fc858b91408a6d91d5d098d5d, type: 3}
@@ -39244,8 +39245,8 @@ Tilemap:
     m_Data: {fileID: 486527071, guid: ce863d1fc858b91408a6d91d5d098d5d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -879828853, guid: ce863d1fc858b91408a6d91d5d098d5d, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 6baa0eedd4596074caea5f4a4497b70a, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -632328103, guid: ce863d1fc858b91408a6d91d5d098d5d, type: 3}
   - m_RefCount: 3
@@ -39505,7 +39506,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 3260
+  - m_RefCount: 3259
     m_Data:
       e00: 1
       e01: 0
@@ -39523,7 +39524,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 122
+  - m_RefCount: 123
     m_Data:
       e00: 1
       e01: 0
@@ -39682,6 +39683,7 @@ MonoBehaviour:
   requireCondition: 1
   conditionType: 1
   failMessage: "\u9700\u8981\u70B8\u5F39"
+  teleportSound: {fileID: 0}
 --- !u!1 &1008557407
 GameObject:
   m_ObjectHideFlags: 0
@@ -39719,6 +39721,7 @@ MonoBehaviour:
   itemType: 1
   itemDescription: "\u83B7\u5F97\u4E86\u7269\u54C1\uFF01"
   healAmount: 1
+  openSound: {fileID: 0}
 --- !u!212 &1008557409
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -60721,6 +60724,7 @@ MonoBehaviour:
   itemType: 1
   itemDescription: "\u83B7\u5F97\u4E86\u7269\u54C1\uFF01"
   healAmount: 1
+  openSound: {fileID: 0}
 --- !u!212 &1624457814
 SpriteRenderer:
   m_ObjectHideFlags: 0
