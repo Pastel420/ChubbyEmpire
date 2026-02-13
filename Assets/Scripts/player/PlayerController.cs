@@ -130,18 +130,16 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerAttack(InputAction.CallbackContext obj)
     {
-        // 已经在攻击中，忽略（防止连点）
-        if (isAttack) return;
+        // 关键：死亡或已死亡时不允许攻击
+        if (isDead || isAttack) return;
 
         playerAnimation.PlayAttack();
         isAttack = true;
 
-        // 播放音效
         if (playerAudio != null)
             playerAudio.PlayAttackSound();
-
-        // 注意：这里不再激活 hitbox，交给动画事件处理
     }
+
 
     //private IEnumerator ActivateAttackHitbox()
     //{
@@ -178,6 +176,14 @@ public class PlayerController : MonoBehaviour
     public void PlayerDead()
     {
         isDead = true;
+        // 强制停止攻击
+        if (isAttack)
+        {
+            isAttack = false;
+            // 关闭攻击判定框
+            DisableAttackHitbox();
+        }
+
         //inputControl.Gameplay.Disable();
     }
     
@@ -213,7 +219,6 @@ public class PlayerController : MonoBehaviour
         {
             attackHitbox.SetActive(false);
             isAttack = false;
-            Debug.Log("攻击判定关闭");
         }
     }
 
