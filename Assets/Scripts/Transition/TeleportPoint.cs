@@ -14,6 +14,8 @@ public class TeleportPoint : MonoBehaviour, Iinteractable
     public ConditionType conditionType;         // 条件类型
     public string failMessage = "需要炸弹开门"; // 不满足条件时的提示
 
+    [Header("音效")]
+    public AudioClip teleportSound;
     public enum ConditionType
     {
         None,
@@ -26,13 +28,18 @@ public class TeleportPoint : MonoBehaviour, Iinteractable
         // 检查条件
         if (requireCondition && !CheckCondition())
         {
-            Debug.Log(failMessage);
+            //Debug.Log(failMessage);
             // 这里可以调用UIManager显示提示
             // UIManager.Instance.ShowMessage(failMessage);
             return;
         }
+        // 播放传送音效
+        if (teleportSound != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(teleportSound);
+        }
 
-        Debug.Log("传送到: " + sceneToGo.name);
+        //Debug.Log("传送到: " + sceneToGo.name);
         loadEventSO.RaiseLoadRequestEvent(sceneToGo, positionToGo, true);
     }
 

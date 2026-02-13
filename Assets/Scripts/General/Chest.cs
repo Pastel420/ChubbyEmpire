@@ -23,6 +23,8 @@ public class Chest : MonoBehaviour, Iinteractable
     [Header("药水设置")]
     public int healAmount = 1;              // 恢复血量
 
+    [Header("音效")]
+    public AudioClip openSound;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -51,13 +53,23 @@ public class Chest : MonoBehaviour, Iinteractable
         spriteRenderer.sprite = openSprite;
         isDone = true;
 
+        // 播放音效
+        if (openSound != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(openSound);
+        }
+        else
+        {
+            // 使用默认交互音效
+            FindObjectOfType<UISoundPlayer>()?.PlayInteractSuccess();
+        }
         // 给予物品
         GiveItemToPlayer();
 
         // 移除交互标签
         this.gameObject.tag = "Untagged";
 
-        Debug.Log(itemDescription);
+        //Debug.Log(itemDescription);
 
         // 显示提示（如果有UIManager）
         // UIManager.Instance.ShowMessage(itemDescription);
