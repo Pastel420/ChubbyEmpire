@@ -135,10 +135,10 @@ public class FollowPlayerAbove : MonoBehaviour
                         catScript.CurrentSpeed = 0f;
                     }
 
-                    // ★★★ 回血逻辑：+8 HP，不超过 MaxHealth ★★★
+                    // ★★★ 回血逻辑：+10 HP，不超过 MaxHealth ★★★
                     if (character != null)
                     {
-                        character.currentHealth = Mathf.Min(character.currentHealth + 8, character.maxHealth);
+                        character.currentHealth = Mathf.Min(character.currentHealth + 10, character.maxHealth);
                     }
 
                     // 启动绿光特效

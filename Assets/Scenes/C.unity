@@ -5567,7 +5567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bf4ef29fe1d7240b5873aa897dd1fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 35
   currentHealth: 0
   invulnerableDuration: 1
   invulnerable: 0
@@ -5576,10 +5576,34 @@ MonoBehaviour:
       m_Calls: []
   OnTakeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 476abfcd25d51904683bdf64387ddc4c, type: 2}
+        m_TargetAssemblyTypeName: VoidEventSO, Assembly-CSharp
+        m_MethodName: RaisedEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDie:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 476abfcd25d51904683bdf64387ddc4c, type: 2}
+        m_TargetAssemblyTypeName: VoidEventSO, Assembly-CSharp
+        m_MethodName: RaisedEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   deathEvent: {fileID: 0}
 --- !u!114 &1004199079
 MonoBehaviour:
@@ -5610,8 +5634,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   physicsCheck: {fileID: 1004199077}
-  NormalSpeed: 100
-  ChaseSpeed: 180
+  NormalSpeed: 150
+  ChaseSpeed: 200
   CurrentSpeed: 0
   faceDir: {x: 0, y: 0, z: 0}
   hurtForce: 0
@@ -5641,7 +5665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c845f8dbb6d534b994ce082e377e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackToJianciDelay: 5
+  attackToJianciDelay: 4
   jianciToAttackDelay: 3
   offset: {x: 0, y: 6}
   jianciDuration: 3
@@ -5659,6 +5683,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   use2DFlip: 1
+  turnDelay: 0.5
+  spriteFacesRightByDefault: 1
 --- !u!1 &1408497770
 GameObject:
   m_ObjectHideFlags: 0
