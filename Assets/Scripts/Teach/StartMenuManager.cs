@@ -18,6 +18,7 @@ public class StartMenuManager : MonoBehaviour
     // 退出游戏按钮调用
     public void OnQuitGame()
     {
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

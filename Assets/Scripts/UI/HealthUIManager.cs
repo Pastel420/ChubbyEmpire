@@ -123,25 +123,25 @@ public class HealthUIManager : MonoBehaviour
         }
     }
 
-    // 测试按键
-    void Update()
-    {
-        if (!isInGameScene || playerCharacter == null) return;
+    //// 测试按键
+    //void Update()
+    //{
+    //    if (!isInGameScene || playerCharacter == null) return;
 
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            Debug.Log("按T键测试扣血");
-            playerCharacter.currentHealth = Mathf.Max(0, playerCharacter.currentHealth - 1);
+    //    //if (Keyboard.current.tKey.wasPressedThisFrame)
+    //    //{
+    //    //    Debug.Log("按T键测试扣血");
+    //    //    playerCharacter.currentHealth = Mathf.Max(0, playerCharacter.currentHealth - 1);
 
-            // 手动触发事件（如果事件没绑定成功）
-            UpdateHealthUI(playerCharacter);
-        }
+    //    //    // 手动触发事件（如果事件没绑定成功）
+    //    //    UpdateHealthUI(playerCharacter);
+    //    //}
 
-        if (Keyboard.current.yKey.wasPressedThisFrame)
-        {
-            Debug.Log("按Y键测试回血");
-            playerCharacter.currentHealth = Mathf.Min(maxHealth, playerCharacter.currentHealth + 1);
-            UpdateHealthUI(playerCharacter);
-        }
-    }
+    //    //if (Keyboard.current.yKey.wasPressedThisFrame)
+    //    //{
+    //    //    Debug.Log("按Y键测试回血");
+    //    //    playerCharacter.currentHealth = Mathf.Min(maxHealth, playerCharacter.currentHealth + 1);
+    //    //    UpdateHealthUI(playerCharacter);
+    //    //}
+    //}
 }
