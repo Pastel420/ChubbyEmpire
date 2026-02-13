@@ -64,9 +64,24 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        faceDir=new Vector3(transform.localScale.x, 0, 0);
+        ValidateAttacker(); // ← 新增这一行
+        faceDir =new Vector3(transform.localScale.x, 0, 0);
         currentState.LogicUpdate();
         TimeCounter();
+    }
+
+    void ValidateAttacker()
+    {
+        // 如果 attacker 是 Player，并且 Player 还活着，就保留
+        if (attacker != null &&
+            attacker.CompareTag("Player") &&
+            attacker.gameObject.activeInHierarchy)
+        {
+            return; // 合法，不用管
+        }
+
+        // 否则：清空 attacker，让 AI 重新索敌
+        attacker = null;
     }
 
     public void FixedUpdate()
@@ -149,9 +164,16 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Onhurt(Vector2 dir)
     {
-        rb.AddForce(dir*hurtForce,ForceMode2D.Impulse);
+        rb.AddForce(dir * hurtForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.5f);
-        isHurt= false;
+        isHurt = false;
+
+        // ★ 新增：受击结束后，强制重置 attacker 并尝试恢复追击 ★
+        attacker = null; // 清掉旧引用，避免无效目标
+        if (FoundPlayer())
+        {
+            SwitchState(NPCState.Chase);
+        }
     }
 
     public void OnDie()
