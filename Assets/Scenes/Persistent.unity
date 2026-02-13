@@ -2877,7 +2877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputDirection: {x: 0, y: 0}
-  speed: 200
+  speed: 250
   jumpForce: 45
   maxJumpCount: 2
   hurtForce: 8

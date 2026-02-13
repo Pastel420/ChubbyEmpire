@@ -5329,6 +5329,7 @@ GameObject:
   - component: {fileID: 1004199077}
   - component: {fileID: 1004199080}
   - component: {fileID: 1004199081}
+  - component: {fileID: 1004199082}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -5566,7 +5567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bf4ef29fe1d7240b5873aa897dd1fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  maxHealth: 30
   currentHealth: 0
   invulnerableDuration: 1
   invulnerable: 0
@@ -5610,7 +5611,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   physicsCheck: {fileID: 1004199077}
   NormalSpeed: 100
-  ChaseSpeed: 300
+  ChaseSpeed: 180
   CurrentSpeed: 0
   faceDir: {x: 0, y: 0, z: 0}
   hurtForce: 0
@@ -5641,10 +5642,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackToJianciDelay: 5
-  jianciToAttackDelay: 4
-  offset: {x: 0, y: 8}
+  jianciToAttackDelay: 3
+  offset: {x: 0, y: 6}
   jianciDuration: 3
   defaultAnimation: Catwalk
+--- !u!114 &1004199082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004199069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26bae0172cc03544ad125db83973fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  use2DFlip: 1
 --- !u!1 &1408497770
 GameObject:
   m_ObjectHideFlags: 0
