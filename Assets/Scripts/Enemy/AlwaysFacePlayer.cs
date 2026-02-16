@@ -5,17 +5,17 @@ using UnityEngine;
 public class AlwaysFacePlayer : MonoBehaviour
 {
     [Header("设置")]
-    public float turnDelay = 0.5f;
+    public float turnDelay = 1f; // 转身所需等待时间（秒）
 
     [Header("2D 设置")]
-    public bool spriteFacesRightByDefault = true; // true=角色默认朝右
+    public bool spriteFacesRightByDefault = true; // true = 美术资源默认朝右
 
     private Transform playerTransform;
     private bool playerFound = false;
-    private Enemy enemy; // 仅用于读取 isHurt，不调用其方法
+    private Enemy enemy; // 仅用于读取 isHurt（当前未使用，但保留扩展性）
 
-    private float currentFacing = 1f;   // 逻辑朝向：+1=应面右, -1=应面左
-    private float targetFacing = 1f;
+    private float currentFacing = 1f;   // 当前实际朝向（+1 右，-1 左）
+    private float targetFacing = 1f;    // 目标朝向（基于玩家位置）
     private bool isTurning = false;
     private float turnTimer = 0f;
 
@@ -27,13 +27,14 @@ public class AlwaysFacePlayer : MonoBehaviour
             enabled = false;
             return;
         }
+
         currentFacing = 1f;
         TryFindPlayer();
     }
 
     void Update()
     {
-        // 持续查找玩家
+        // 持续尝试查找玩家
         if (!playerFound || playerTransform == null || playerTransform.gameObject == null)
         {
             TryFindPlayer();
@@ -41,23 +42,15 @@ public class AlwaysFacePlayer : MonoBehaviour
 
         if (!playerFound)
         {
-            // 没有玩家时，保持当前朝向（或可选：不更新）
             ApplyFacing();
             return;
         }
 
-        // 计算玩家相对于敌人的方向
+        // 计算玩家在敌人左侧还是右侧
         float directionX = playerTransform.position.x - transform.position.x;
         targetFacing = directionX >= 0 ? 1f : -1f;
 
-        // ★★★ 关键：只要玩家存在，就立即确保朝向正确 ★★★
-        // 即使正在转身或受击，我们也优先保证方向对（视觉+逻辑一致）
-        currentFacing = targetFacing;
-        ApplyFacing();
-
-        // 可选：如果你仍想要“转身延迟”的动画效果，可以保留以下逻辑
-        // 但为了索敌稳定，建议直接 currentFacing = targetFacing（如上）
-        /*
+        // 转身延迟逻辑
         if (isTurning)
         {
             turnTimer += Time.deltaTime;
@@ -70,25 +63,29 @@ public class AlwaysFacePlayer : MonoBehaviour
         }
         else
         {
+            // 如果目标朝向与当前不同，开始转身计时
             if (targetFacing != currentFacing)
             {
                 isTurning = true;
                 turnTimer = 0f;
             }
         }
-        */
+
+        // 注意：在转身完成前，currentFacing 不变，因此 ApplyFacing 会保持旧朝向
+        ApplyFacing();
     }
 
     void ApplyFacing()
     {
         Vector3 newScale = transform.localScale;
-        // 根据美术资源方向，转换逻辑朝向为实际 scale.x
-        float visualScaleX = spriteFacesRightByDefault
-            ? currentFacing          // 美术朝右：逻辑+1 → scale.x = +1（右）
-            : -currentFacing;        // 美术朝左：逻辑+1 → scale.x = -1（右）
 
-        // ★ 强制设置，无视 Enemy 的任何修改 ★
-        newScale.x = Mathf.Abs(newScale.x) * visualScaleX;
+        // 根据美术资源默认朝向，转换逻辑朝向为实际 scale.x
+        float visualScaleX = spriteFacesRightByDefault
+            ? currentFacing          // 美术朝右：逻辑 +1 → scale.x = +1（显示朝右）
+            : -currentFacing;        // 美术朝左：逻辑 +1 → scale.x = -1（显示朝右）
+
+        // 强制设置 X 缩放，保留 Y/Z 不变
+        newScale.x = Mathf.Abs(transform.localScale.x) * visualScaleX;
         transform.localScale = newScale;
     }
 

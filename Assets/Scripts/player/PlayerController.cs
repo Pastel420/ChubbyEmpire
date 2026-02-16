@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
     public PlayerInputControl inputControl;
@@ -14,9 +14,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("基本参数")]
     public float speed;
+
+    // 使用 NonSerialized 防止 Inspector 干扰
+    [NonSerialized]
     public float jumpForce;
-    public int maxJumpCount = 2; // 最大跳跃次数（包括一段跳）
-    private int currentJumpCount = 0; // 当前已跳跃次数
+
+    public int maxJumpCount = 2;
+    private int currentJumpCount = 0;
     public float hurtForce;
     public bool isHurt;
     public bool isDead;
@@ -25,59 +29,57 @@ public class PlayerController : MonoBehaviour
     private float doubleJumpForceMultiplier = 0.8f;
 
     [Header("攻击判定")]
-    public GameObject attackHitbox;      // 拖入 AttackHitbox 子物体
-    //public float attackActiveTime = 0.2f; // 攻击判定持续时间（秒）
-    //private Coroutine currentAttack;
+    public GameObject attackHitbox;
 
-   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         physicsCheck = GetComponent<PhysicsCheck>();
         playerAnimation = GetComponent<PlayerAnimation>();
-
-        inputControl = new PlayerInputControl();
         playerAudio = GetComponent<PlayerAudio>();
 
-        // 注册回调
+        inputControl = new PlayerInputControl();
         inputControl.Gameplay.Jump.started += Jump;
         inputControl.Gameplay.Attack.performed += PlayerAttack;
 
-        //inputControl.Enable(); // ←←← 这行最重要！
+        // 初始检测
+        UpdateJumpForceByLoadedScenes();
 
-        
+        // 监听场景加载/卸载
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
 
     private void OnEnable()
     {
-        //Debug.Log("【PlayerController】输入系统已启用。");
         inputControl.Enable();
     }
 
     private void OnDisable()
     {
-        //inputControl.Disable();
+        // inputControl.Disable();
     }
 
     private void Update()
     {
         inputDirection = inputControl.Gameplay.Move.ReadValue<Vector2>();
-        
     }
 
     private void FixedUpdate()
     {
-        if(!isHurt)
+        if (!isHurt)
             Move();
 
-        // 检查是否落地
         if (physicsCheck.isGround && rb.velocity.y <= 0)
         {
             currentJumpCount = 0;
-       
         }
-       
     }
 
     public void Move()
@@ -85,44 +87,31 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(inputDirection.x * speed * Time.fixedDeltaTime, rb.velocity.y);
 
         int faceDir = (int)transform.localScale.x;
-
         if (inputDirection.x < 0)
             faceDir = -1;
         if (inputDirection.x > 0)
             faceDir = 1;
-        //人物翻转
         transform.localScale = new Vector3(faceDir, 1, 1);
     }
+
     private void Jump(InputAction.CallbackContext context)
     {
-        // 如果在地面上，重置跳跃计数
         if (physicsCheck.isGround)
         {
             currentJumpCount = 0;
         }
 
-        // 如果还可以跳跃
         if (currentJumpCount < maxJumpCount)
         {
-            // 重置Y轴速度，确保跳跃高度一致
             rb.velocity = new Vector2(rb.velocity.x, 0);
-
-            // 根据跳跃次数计算跳跃力
             float actualJumpForce = jumpForce;
-
-            // 如果是二段跳（currentJumpCount == 1表示已经跳过一次）
             if (currentJumpCount == 1)
             {
-                // 应用二段跳力度系数
                 actualJumpForce *= doubleJumpForceMultiplier;
             }
-
-            // 执行跳跃
             rb.AddForce(transform.up * actualJumpForce, ForceMode2D.Impulse);
-
             currentJumpCount++;
 
-            // 播放跳跃音效
             if (playerAudio != null)
                 playerAudio.PlayJumpSound();
         }
@@ -130,45 +119,19 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerAttack(InputAction.CallbackContext obj)
     {
-        // 关键：死亡或已死亡时不允许攻击
         if (isDead || isAttack) return;
-
         playerAnimation.PlayAttack();
         isAttack = true;
-
         if (playerAudio != null)
             playerAudio.PlayAttackSound();
     }
-
-
-    //private IEnumerator ActivateAttackHitbox()
-    //{
-    //    // 激活判定区域
-    //    attackHitbox.SetActive(true);
-
-    //    // 等待一段时间（攻击窗口）
-    //    yield return new WaitForSeconds(attackActiveTime);
-
-    //    // 关闭判定区域
-    //    attackHitbox.SetActive(false);
-    //}
-
-    //private IEnumerator DisableHitboxAfterDelay()
-    //{
-    //    yield return new WaitForSeconds(0.2f); // 0.2秒后关闭
-    //    if (attackHitbox != null)
-    //        attackHitbox.SetActive(false);
-    //}
 
     public void GetHurt(Transform attacker)
     {
         isHurt = true;
         rb.velocity = Vector2.zero;
-        Vector2 dir = new Vector2((transform.position.x - attacker.position.x),0).normalized;
-
+        Vector2 dir = new Vector2((transform.position.x - attacker.position.x), 0).normalized;
         rb.AddForce(dir * hurtForce, ForceMode2D.Impulse);
-
-        // 播放受伤音效
         if (playerAudio != null)
             playerAudio.PlayHurtSound();
     }
@@ -176,33 +139,25 @@ public class PlayerController : MonoBehaviour
     public void PlayerDead()
     {
         isDead = true;
-        // 强制停止攻击
         if (isAttack)
         {
             isAttack = false;
-            // 关闭攻击判定框
             DisableAttackHitbox();
         }
-
-        //inputControl.Gameplay.Disable();
     }
-    
 
-    // 公开方法：供其他脚本调用播放获得物品音效
     public void PlayItemPickupSound()
     {
         if (playerAudio != null)
             playerAudio.PlayItemSound();
     }
 
-    // 公开方法：供其他脚本调用播放开门音效
     public void PlayDoorOpenSound()
     {
         if (playerAudio != null)
             playerAudio.PlayDoorSound();
     }
 
-    // 动画事件调用：开启攻击判定
     public void EnableAttackHitbox()
     {
         if (attackHitbox != null)
@@ -212,7 +167,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 动画事件调用：关闭攻击判定
     public void DisableAttackHitbox()
     {
         if (attackHitbox != null)
@@ -222,20 +176,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 添加复活方法
     public void Revive()
     {
         isDead = false;
         isHurt = false;
         isAttack = false;
-
-        // 重新启用输入
         inputControl.Gameplay.Enable();
-
-        // 重置速度
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
-
         Debug.Log("玩家已复活");
+    }
+
+    // 核心逻辑：检查所有已加载场景，只要有一个包含 "C"，就设为 60
+    private void UpdateJumpForceByLoadedScenes()
+    {
+        bool hasSceneWithC = false;
+
+        // 遍历所有已加载的场景
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.IsValid() && scene.name.Contains("C"))
+            {
+                hasSceneWithC = true;
+                break; // 找到一个就够了
+            }
+        }
+
+        jumpForce = hasSceneWithC ? 50f : 45f;
+
+        // 调试日志
+        string allSceneNames = "";
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            allSceneNames += SceneManager.GetSceneAt(i).name + ", ";
+        }
+        Debug.Log($"已加载场景: [{allSceneNames}] | 包含 C 的场景? {hasSceneWithC} | jumpForce = {jumpForce}");
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateJumpForceByLoadedScenes();
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        UpdateJumpForceByLoadedScenes();
     }
 }

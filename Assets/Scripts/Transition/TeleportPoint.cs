@@ -1,45 +1,48 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TeleportPoint : MonoBehaviour, Iinteractable
 {
-    [Header("³¡¾°¼ÓÔØ")]
+    [Header("åœºæ™¯åŠ è½½")]
     public SceneLoadEventSO loadEventSO;
     public GameSceneSO sceneToGo;
     public Vector3 positionToGo;
 
-    [Header("´«ËÍÌõ¼ş")]
-    public bool requireCondition = false;       // ÊÇ·ñĞèÒªÂú×ãÌõ¼ş
-    public ConditionType conditionType;         // Ìõ¼şÀàĞÍ
-    public string failMessage = "ĞèÒªÕ¨µ¯¿ªÃÅ"; // ²»Âú×ãÌõ¼şÊ±µÄÌáÊ¾
+    [Header("ä¼ é€æ¡ä»¶")]
+    public bool requireCondition = false;
+    public ConditionType conditionType;
+    public string failMessage = "éœ€è¦ç‚¸å¼¹å¼€é—¨";
 
-    [Header("ÒôĞ§")]
+    [Header("éŸ³æ•ˆ")]
     public AudioClip teleportSound;
+
     public enum ConditionType
     {
         None,
-        HasBomb,           // ĞèÒªÕ¨µ¯£¨P¡¢S¹Ø¿¨£©
-        BossDefeated       // ĞèÒª»÷°ÜBoss£¨C¹Ø¿¨£©
+        HasBomb,           // éœ€è¦ç‚¸å¼¹ï¼ˆPã€Så…³å¡ï¼‰
+        BossDefeated       // éœ€è¦å‡»è´¥Bossï¼ˆCå…³å¡ï¼‰
     }
 
     public void TriggerAction()
     {
-        // ¼ì²éÌõ¼ş
+        // æ£€æŸ¥æ¡ä»¶
         if (requireCondition && !CheckCondition())
         {
-            //Debug.Log(failMessage);
-            // ÕâÀï¿ÉÒÔµ÷ÓÃUIManagerÏÔÊ¾ÌáÊ¾
             // UIManager.Instance.ShowMessage(failMessage);
             return;
         }
-        // ²¥·Å´«ËÍÒôĞ§
+
+        // âœ… å…³é”®ï¼šä¼ é€æ—¶æ¸…ç©ºç‚¸å¼¹çŠ¶æ€ï¼ˆé˜²æ­¢å¸¦å…¥ä¸‹ä¸€å…³ï¼‰
+        PlayerDataManager.Instance.hasBomb = false;
+
+        // æ’­æ”¾ä¼ é€éŸ³æ•ˆ
         if (teleportSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySFX(teleportSound);
         }
 
-        //Debug.Log("´«ËÍµ½: " + sceneToGo.name);
+        // åŠ è½½ç›®æ ‡åœºæ™¯
         loadEventSO.RaiseLoadRequestEvent(sceneToGo, positionToGo, true);
     }
 
@@ -56,7 +59,6 @@ public class TeleportPoint : MonoBehaviour, Iinteractable
         }
     }
 
-    // ¿ÉÊÓ»¯·¶Î§
     private void OnDrawGizmos()
     {
         Gizmos.color = requireCondition ? Color.yellow : Color.green;

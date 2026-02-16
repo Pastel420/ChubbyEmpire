@@ -43,7 +43,6 @@ public class FollowPlayerAbove : MonoBehaviour
         anim = GetComponent<Animator>();
         catScript = GetComponent<Cat>();
         character = GetComponent<Character>();
-
         if (catScript == null)
         {
             Debug.LogError("[FollowPlayerAbove] 未找到 Cat 脚本！", this);
@@ -135,10 +134,10 @@ public class FollowPlayerAbove : MonoBehaviour
                         catScript.CurrentSpeed = 0f;
                     }
 
-                    // ★★★ 回血逻辑：+10 HP，不超过 MaxHealth ★★★
+                    // ★★★ 回血逻辑：+15 HP，不超过 MaxHealth ★★★
                     if (character != null)
                     {
-                        character.currentHealth = Mathf.Min(character.currentHealth + 10, character.maxHealth);
+                        character.currentHealth = Mathf.Min(character.currentHealth + 15, character.maxHealth);
                     }
 
                     // 启动绿光特效
