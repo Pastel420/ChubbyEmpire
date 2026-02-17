@@ -16,42 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 9d887c45266242648a36dc425caaace9
-  m_SerializeEntries:
-  - m_GUID: 257ebfd3803acd0468bb459213b0eea4
-    m_Address: S
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 304bee76204596a41bd591039845e555
-    m_Address: Start
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4d1f0c4c114adf140b0959c2eb58face
-    m_Address: P
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6c1aaf8552420614f821a96cc623f0d2
-    m_Address: C
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 892244a750732ee46a91470034ec1786
-    m_Address: Assets/Scenes/End.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a0e7e0a2c65cbe64ebdc6b6f466235e9
-    m_Address: Persistent
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d1a12ea185bcf5347b38b2875e3fffca
-    m_Address: Teach
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4f22dfe1dbb5a3b49b46ae32f8047dbf, type: 2}
   m_SchemaSet:

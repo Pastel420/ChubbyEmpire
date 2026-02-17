@@ -87566,6 +87566,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -965363047278234475, guid: 15eb142767a998645a022b2d8113e8d4, type: 3}
+      propertyPath: invulnerableDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 515165137485386408, guid: 15eb142767a998645a022b2d8113e8d4, type: 3}
       propertyPath: m_Name
       value: Golem

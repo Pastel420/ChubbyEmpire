@@ -6,7 +6,28 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Persistent.unity
+    guid: a0e7e0a2c65cbe64ebdc6b6f466235e9
+  - enabled: 1
     path: Assets/Scenes/Initialization.unity
     guid: 0844ce1861125434dad6926920a7afdd
+  - enabled: 1
+    path: Assets/Scenes/S.unity
+    guid: 257ebfd3803acd0468bb459213b0eea4
+  - enabled: 1
+    path: Assets/Scenes/C.unity
+    guid: 6c1aaf8552420614f821a96cc623f0d2
+  - enabled: 1
+    path: Assets/Scenes/P.unity
+    guid: 4d1f0c4c114adf140b0959c2eb58face
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: 304bee76204596a41bd591039845e555
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: 892244a750732ee46a91470034ec1786
+  - enabled: 1
+    path: Assets/Scenes/Teach.unity
+    guid: d1a12ea185bcf5347b38b2875e3fffca
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a6480aac50682484386db23fa8c83eee, type: 2}
